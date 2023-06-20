@@ -30,7 +30,7 @@
 
 #define autoreleasepool(x) CreateAutoreleasepool(); x ReleaseCurrentPool();
 
-#define alloc(x) MMAlloc(x)
+#define alloc(x) AutoreleaseAlloc(x)
 
 struct Autoreleasepool {
     void **allocated;
