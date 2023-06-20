@@ -27,7 +27,7 @@
 Autoreleasepool *globalPool = NULL;
 
 Autoreleasepool *CreateAutoreleasepool() {
-    Autoreleasepool *pool = (MMReleasePool*) malloc(sizeof(MMReleasePool));
+    Autoreleasepool *pool = (Autoreleasepool*) malloc(sizeof(Autoreleasepool));
 
     if (pool == NULL) {
         printf("[AutoReleaseError in CreateAutoreleasepool: failed to allocate Autoreleasepool]\n");
@@ -61,7 +61,7 @@ void *AutoreleaseAlloc(int bytes) {
         globalPool->allocated[globalPool->size-1] = alloc;
         return alloc;
     }
-    printf("[AutoReleaseError in MMAlloc: no pool found]\n");
+    printf("[AutoReleaseError in AutoreleaseAlloc: no pool found]\n");
     return NULL;
 }
 
