@@ -20,5 +20,14 @@ autoreleasepool (
 )
 ...
 ```
+using allocs.h
+``` c
+...
+autoreleasepool (
+  // your code (again)
+  // e.g.:
+  yourStruct *instance = alloc_b(yourStruct, 16);
+)
+```
 
 More examples can be found in the example folder.
