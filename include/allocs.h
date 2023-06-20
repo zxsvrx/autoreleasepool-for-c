@@ -3,7 +3,7 @@
 
 #include "autoreleasepool.h"
 
-#define alloc_b(type, wantSize) (type*)alloc(sizeof(type)*wantSize)
+#define alloc_b(type, n) (type*)alloc(sizeof(type)*n)
 
 #define charAlloc(n)    (char*)alloc(sizeof(char)*n)
 #define intAlloc(n)     (int*)alloc(sizeof(int)*n)
