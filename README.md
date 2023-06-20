@@ -33,7 +33,7 @@ More examples can be found in the example folder.
 
 ## Building
 
-To build a static library (ARPLib) do the following:
+To build a static library (libARPC) do the following:
 1. Create a folder called `build`
 2. In the folder `build` run `cmake ..` (make sure cmake is installed`
 3. Now run `make`
