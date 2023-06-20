@@ -35,8 +35,8 @@
 struct Autoreleasepool {
     void **allocated;
     int size;
-    struct MMReleasePool *next;
-    struct MMReleasePool *prev;
+    struct Autoreleasepool *next;
+    struct Autoreleasepool *prev;
 };
 
 typedef struct Autoreleasepool Autoreleasepool;
