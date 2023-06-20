@@ -43,6 +43,7 @@ typedef struct Autoreleasepool Autoreleasepool;
 
 Autoreleasepool *CreateAutoreleasepool();
 void *AutoreleaseAlloc(int bytes);
+void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes);
 void ReleaseCurrentPool();
 void ReleaseAutoreleasepool(Autoreleasepool *pool);
 
