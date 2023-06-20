@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define autoreleasepool(x) MMCreateReleasePool(); x MMReleaseCurrentPool();
+#define autoreleasepool(x) CreateAutoreleasepool(); x ReleaseCurrentPool();
 
 #define alloc(x) MMAlloc(x)
 
