@@ -19,7 +19,7 @@ autoreleasepool (
 )
 ...
 ```
-using allocs.h
+using `allocs.h`
 ``` c
 ...
 autoreleasepool (
