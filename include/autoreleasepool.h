@@ -1,5 +1,5 @@
 /*
- MIT License
+ autoreleasepool-for-c
  
  Copyright (c) 2023 zxsvrx
  
