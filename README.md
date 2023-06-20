@@ -3,8 +3,7 @@
 ## General
 
 An autoreleasepool library for the c language, which
-is capable of creating nested autoreleasepools allowing
-for smaller autoreleasepools.
+is capable of creating nested autoreleasepools.
 
 ## Limitations
 
