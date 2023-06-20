@@ -65,6 +65,23 @@ void *AutoreleaseAlloc(int bytes) {
     return NULL;
 }
 
+void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes) {
+ if (pool != NULL) {
+        void *alloc = malloc(bytes);
+  // check for valid pool->allocated!
+        void **buffer = (void**)realloc(pool->allocated, ++pool->size);
+        if (buffer == NULL) {
+            printf("[AutoReleaseError in AutoreleaseAlloc: failed to allocate memory (%i bytes)]\n", bytes);
+            return NULL;
+        }
+        pool->allocated = buffer;
+        pool->allocated[globalPool->size-1] = alloc;
+        return alloc;
+    }
+    printf("[AutoReleaseError in AutoreleaseAlloc: no pool found]\n");
+    return NULL;
+}
+
 void ReleaseAutoreleasepool(Autoreleasepool *pool) {
     if (pool == NULL) {
         return;
