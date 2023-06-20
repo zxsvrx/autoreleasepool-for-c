@@ -1,1 +1,3 @@
 - Add alternative memory management (realloc with more elements?)
+- Add different default allocation modes
+- Use error logs instead of printf
