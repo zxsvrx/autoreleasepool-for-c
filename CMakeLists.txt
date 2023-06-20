@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)  # Adjust the version as needed
 
-project(ARPLib)
+project(libARPC)
 
 set(SOURCES
     src/autoreleasepool.c
