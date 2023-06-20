@@ -5,10 +5,10 @@
 
 #define alloc_b(type, wantSize) (type*)alloc(sizeof(type)*wantSize)
 
-#define charAlloc   (char*)alloc
-#define intAlloc    (int*)alloc
-#define longAlloc   (long*)alloc
-#define floatAlloc  (float*)alloc
-#define doubleAlloc (double*)alloc
+#define charAlloc(n)    (char*)alloc(sizeof(char)*n)
+#define intAlloc(n)     (int*)alloc(sizeof(int)*n)
+#define longAlloc(n)    (long*)alloc(sizeof(long)*n)
+#define floatAlloc(n)   (float*)alloc(sizeof(float)*n)
+#define doubleAlloc(n)  (double*)alloc(sizeof(double)*n)
 
 #endif
