@@ -1,2 +1,24 @@
 # autoreleasepool-for-c
-An autoreleasepool for the c language.
+
+## General
+
+An autoreleasepool library for the c language, which
+is capable of creating nested autoreleasepools allowing
+for smaller autoreleasepools.
+
+## Limitations
+
+In order to use the autoreleasepool you have to use the provided alloc function(s).
+
+## Recommended example usage:
+``` c
+...
+autoreleasepool (
+  // your code
+  // e.g.:
+  char *str = (char*)alloc(100);
+)
+...
+```
+
+More examples can be found in the example folder.
