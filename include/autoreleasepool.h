@@ -47,6 +47,8 @@ void *AutoreleaseAlloc(int bytes);
 void *NewAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes);
 // gets passed to the first autoreleasealloc for now; maybe move to last released
 void *PeservedAutoreleaseAlloc(int bytes);
+
+// bytes = new bytes not old bytes + new bytes
 void *AutoreleaseRealloc(void *source, int bytes);
 
 void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, void *allocated, int bytes);
