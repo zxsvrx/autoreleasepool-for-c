@@ -4,7 +4,7 @@
 #include "autoreleasepool.h"
 
 #define alloc_b(type, n) (type*)alloc(sizeof(type)*n)
-#define preserve(type, n) (type*)AutoreleasePreserveAlloc(type, n)
+#define preserve(type, n) (type*)PreservedAutoreleaseAlloc(type, n)
 #define realloc_b(type, pool, n) (type*)AutpreleaseRealloc(pool, type, n)
 
 #define charAlloc(n)    (char*)alloc(sizeof(char)*n)
