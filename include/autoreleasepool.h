@@ -49,7 +49,7 @@ void *NewAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes);
 void *PeservedAutoreleaseAlloc(int bytes);
 void *AutoreleaseRealloc(void *source, int bytes);
 
-void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, void *allocated);
+void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, void *allocated, int bytes);
 
 void ReleaseCurrentPool();
 void ReleaseAutoreleasepool(Autoreleasepool *pool);
