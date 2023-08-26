@@ -41,7 +41,7 @@ struct Autoreleasepool {
 
 typedef struct Autoreleasepool Autoreleasepool;
 
-Autoreleasepool *CreateAutoreleasepool();
+Autoreleasepool *CreateAutoreleasepool(void);
 
 void *AutoreleaseAlloc(int bytes);
 void *NewAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes);
@@ -53,7 +53,10 @@ void *AutoreleaseRealloc(void *source, int bytes);
 
 void *AddAutoreleaseAllocToPool(Autoreleasepool *pool, void *allocated, int bytes);
 
-void ReleaseCurrentPool();
+void ReleaseFromCurrentPool(void *allocated);
+void ReleaseFromPool(Autoreleasepool *pool, void *allocated);
+
+void ReleaseCurrentPool(void);
 void ReleaseAutoreleasepool(Autoreleasepool *pool);
 
 
