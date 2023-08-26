@@ -3,4 +3,3 @@
 - Use error logs instead of printf
 - Add own destructors (alloc_c(ownStruct, func(ownStruct), n))
 - Add reference counting/passing (ownership transfer)
-- Add possibility to realloc memory
