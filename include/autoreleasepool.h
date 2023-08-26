@@ -34,6 +34,7 @@
 
 struct Autoreleasepool {
     void **allocated;
+    void *useNext;
     int size;
     struct Autoreleasepool *next;
     struct Autoreleasepool *prev;
