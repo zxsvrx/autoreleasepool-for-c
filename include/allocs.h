@@ -6,6 +6,7 @@
 #define alloc_b(type, n) (type*)alloc(sizeof(type)*n)
 #define preserve(type, n) (type*)PreservedAutoreleaseAlloc(type, n)
 #define realloc_b(type, pool, n) (type*)AutpreleaseRealloc(pool, type, n)
+#define release(alloc) ReleaseFromCurrentPool(alloc)
 
 #define charAlloc(n)    (char*)alloc(sizeof(char)*n)
 #define intAlloc(n)     (int*)alloc(sizeof(int)*n)
