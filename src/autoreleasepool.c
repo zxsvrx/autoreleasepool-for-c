@@ -58,8 +58,8 @@ void *NewAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes) {
  if (pool != NULL) {
         void *alloc = malloc(bytes);
         if (alloc == NULL) {
-         printf("[AutoReleaseError in NewAutoreleaseAllocToPool: failed to allocate memory (%i bytes)]\n", bytes);
-         return NULL;
+            printf("[AutoReleaseError in NewAutoreleaseAllocToPool: failed to allocate memory (%i bytes)]\n", bytes);
+            return NULL;
         }
         char **buffer = (void**)realloc(allocated, (++pool->size)*sizeof(void*));
         if (buffer == NULL) {
@@ -77,65 +77,85 @@ void *NewAutoreleaseAllocToPool(Autoreleasepool *pool, int bytes) {
 }
 
 void *PeservedAutoreleaseAlloc(int bytes) {
- if (globalPool == NULL) {
-    printf("[AutoReleaseError in PeservedAutoreleaseAlloc: no pool found]\n");
-    return NULL;
- }
- 
- Autoreleasepool *prev = globalPool->prev;
- Autoreleasepool *pool = globalPool;
- while (prev != NULL) {
-  pool = prev;
-  prev = pool->prev;
- }
- return NewAutoreleaseAllocToPool(pool, bytes);
+    if (globalPool == NULL) {
+        printf("[AutoReleaseError in PeservedAutoreleaseAlloc: no pool found]\n");
+        return NULL;
+    }
+     
+    Autoreleasepool *prev = globalPool->prev;
+    Autoreleasepool *pool = globalPool;
+    while (prev != NULL) {
+        pool = prev;
+        prev = pool->prev;
+    }
+    return NewAutoreleaseAllocToPool(pool, bytes);
 }
 
 void AddAutoreleaseAllocToPool(Autoreleasepool *pool, void *allocated) {
-if (allocated == NULL) {
- return;
-}
+    if (allocated == NULL) {
+        return;
+    }
  
- if (pool == NULL) {
-    printf("[AutoReleaseError in AddAutoreleaseAllocToPool: no pool found]\n");
-    return;
- }
+    if (pool == NULL) {
+        printf("[AutoReleaseError in AddAutoreleaseAllocToPool: no pool found]\n");
+        return;
+    }
 
- if (pool->allocated == NULL) {
-  pool->allocated = (void**)malloc(sizeof(void*));
-  pool->size++;
- }
- else {
-  char **buffer = (void**)realloc(allocated, (++pool->size)*sizeof(void*));
-  if (buffer == NULL) {
-      printf("[AutoReleaseError in AddAutoreleaseAllocToPool: failed to allocate memory (%i bytes)]\n", (pool->size)*sizeof(void*));
-      free(alloc);
-      size--;
-      return NULL;
-  }
-  pool->allocated = buffer;
- }
-  pool->allocated[globalPool->size-1] = alloc;
+    if (pool->allocated == NULL) {
+        pool->allocated = (void**)malloc(sizeof(void*));
+        pool->size++;
+    }
+    else {
+        char **buffer = (void**)realloc(allocated, (++pool->size)*sizeof(void*));
+        if (buffer == NULL) {
+            printf("[AutoReleaseError in AddAutoreleaseAllocToPool: failed to allocate memory (%i bytes)]\n", (pool->size)*sizeof(void*));
+            free(alloc);
+            size--;
+            return NULL;
+        }
+        pool->allocated = buffer;
+    }
+    pool->allocated[globalPool->size-1] = alloc;
 }
 
 void *AutoreleaseRealloc(Autoreleasepool *pool, void *allocated, int bytes) {
- if (pool == NULL) {
-  printf("[AutoReleaseError in AutoreleaseRealloc: no pool found]\n");
-  return;
- }
+    if (pool == NULL) {
+        printf("[AutoReleaseError in AutoreleaseRealloc: no pool found]\n");
+        return;
+    }
 
- for (int iter = 0; iter < pool->size; ++iter) {
-  if (allocated == pool->allocated[iter]) {
-   void *buffer = realloc(allocated, bytes);
-   if (buffer == NULL) {
-    printf("[AutoReleaseError in AutoreleaseRealloc: failed to allocate memory (%i bytes)]\n", (pool->size)*sizeof(void*));
+    for (int iter = 0; iter < pool->size; ++iter) {
+        if (allocated == pool->allocated[iter]) {
+            void *buffer = realloc(allocated, bytes);
+            if (buffer == NULL) {
+                printf("[AutoReleaseError in AutoreleaseRealloc: failed to allocate memory (%i bytes)]\n", (pool->size)*sizeof(void*));
+                return NULL;
+            }
+            pool->allocated[iter] = buffer;
+            return buffer;
+        }
+    }
     return NULL;
-   }
-   pool->allocated[iter] = buffer;
-   return buffer;
-  }
- }
- return NULL;
+}
+
+void ReleaseFromPool(Autoreleasepool *pool, void *allocated) {
+    for (int iter = 0; iter < pool->size; ++iter) {
+        if (pool->allocated[iter] == allocated) {
+            free(pool->allocated[iter]);
+            if (pool->useNext == NULL) {
+                useNext = pool->allocated[iter];
+            }
+            else {
+                pool->allocated[iter] = useNext;
+                useNext = pool->allocated[iter];
+            }
+            return;
+        }
+    }
+}
+
+void ReleaseFromCurrentPool(void *allocated) {
+    ReleaseFromPool(globalPool, allocated);
 }
 
 void ReleaseAutoreleasepool(Autoreleasepool *pool) {
